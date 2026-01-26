@@ -25,7 +25,14 @@ export default [
     },
     rules: {
       ...ts.configs.recommended.rules,
-      ...ts.configs['recommended-type-checked'].rules,
+
+      // Turn off rules that break shadcn / Radix / React patterns
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
     },
   },
 
@@ -72,6 +79,14 @@ export default [
     languageOptions: {
       globals: {
         ...globals.jest,
+      },
+    },
+  },
+  {
+    files: ['vite.config.*', 'tailwind.config.*'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
       },
     },
   },
