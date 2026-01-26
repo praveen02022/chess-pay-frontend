@@ -1,18 +1,14 @@
-import { Menu } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
-import logo from "@/assets/logo.jpg";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Menu } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import logo from '@/assets/logo.jpg';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Tournaments", path: "/tournaments" },
-  { name: "Contact", path: "/contact" },
+  { name: 'Home', path: '/' },
+  { name: 'Tournaments', path: '/tournaments' },
+  { name: 'Contact', path: '/contact' },
 ];
 
 export default function Header() {
@@ -21,22 +17,19 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   const isActive = (path: string) =>
-    location.pathname === path ||
-    location.pathname.startsWith(path + "/");
+    location.pathname === path || location.pathname.startsWith(path + '/');
 
   return (
     <header className="sticky top-0 z-50 bg-[#ABE7B2] backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-
         {/* Brand */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-10 w-10 cursor-pointer" />
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate('/')}
             className="text-2xl font-bold text-black"
           >
-
-            Chess..
+            Chess...
           </button>
         </div>
 
@@ -46,10 +39,11 @@ export default function Header() {
             <button
               key={link.name}
               onClick={() => navigate(link.path)}
-              className={`text-sm font-medium transition cursor-pointer ${isActive(link.path)
-                  ? "text-pink-600"
-                  : "text-gray-700 hover:text-black"
-                }`}
+              className={`text-sm font-medium transition cursor-pointer ${
+                isActive(link.path)
+                  ? 'text-pink-600'
+                  : 'text-gray-700 hover:text-black'
+              }`}
             >
               {link.name}
             </button>
@@ -74,9 +68,10 @@ export default function Header() {
                     setOpen(false);
                   }}
                   className={`rounded-lg px-4 py-3 text-left text-base transition
-                    ${isActive(link.path)
-                      ? "bg-green-600 text-white"
-                      : "text-gray-800 hover:bg-green-100"
+                    ${
+                      isActive(link.path)
+                        ? 'bg-green-600 text-white'
+                        : 'text-gray-800 hover:bg-green-100'
                     }`}
                 >
                   {link.name}
@@ -87,7 +82,7 @@ export default function Header() {
               <Button
                 className="mt-4"
                 onClick={() => {
-                  navigate("/login");
+                  navigate('/login');
                   setOpen(false);
                 }}
               >

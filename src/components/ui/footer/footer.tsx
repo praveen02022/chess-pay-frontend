@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-[#ABE7B2] text-black/80">
       <div className="mx-auto max-w-7xl px-6 py-14">
 
-        {/* Top Sections */}
+        {/* Top Sectionss */}
         <div className="grid gap-10 md:grid-cols-4">
 
           {/* Brand */}
