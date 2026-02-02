@@ -13,6 +13,7 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "Tournaments", path: "/tournaments" },
   { name: "Contact", path: "/contact" },
+  { name: "Organizer", path: "/organizer" },
 ];
 
 export default function Header() {
@@ -82,17 +83,6 @@ export default function Header() {
                   {link.name}
                 </button>
               ))}
-
-              {/* CTA */}
-              <Button
-                className="mt-4"
-                onClick={() => {
-                  navigate("/login");
-                  setOpen(false);
-                }}
-              >
-                Get Started
-              </Button>
             </div>
           </SheetContent>
         </Sheet>

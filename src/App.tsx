@@ -3,7 +3,7 @@ import Header from "@/components/ui/header";
 import Footer from "@/components/ui/footer";
 import Router from "./routes";
 import { AppProvider } from "./provider";
-import { BrowserRouter } from "react-router-dom"; // ✅ FIX
+import { BrowserRouter } from "react-router-dom"; 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
