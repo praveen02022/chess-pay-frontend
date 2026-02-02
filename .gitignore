@@ -6,3 +6,7 @@ dev-dist
 *.local
 .env
 src/styles.css
+
+build
+.next
+.vite
