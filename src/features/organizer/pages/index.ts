@@ -1,1 +1,1 @@
-export {default} from './organizer';
+export { default } from './organizer';

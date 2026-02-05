@@ -1,47 +1,47 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Input from "@/components/form/input"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import Input from '@/components/form/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Plus, Trash2, Users } from "lucide-react"
+} from '@/components/ui/select';
+import { Plus, Trash2, Users } from 'lucide-react';
 
 type Player = {
-  id: string
-  name: string
-  fideId?: string
-  category: string
-  rating?: number
-  paymentStatus: "Paid" | "Pending"
-}
+  id: string;
+  name: string;
+  fideId?: string;
+  category: string;
+  rating?: number;
+  paymentStatus: 'Paid' | 'Pending';
+};
 
 const players: Player[] = [
   {
-    id: "1",
-    name: "Arjun Kumar",
-    fideId: "25123456",
-    category: "Open",
+    id: '1',
+    name: 'Arjun Kumar',
+    fideId: '25123456',
+    category: 'Open',
     rating: 1850,
-    paymentStatus: "Paid",
+    paymentStatus: 'Paid',
   },
   {
-    id: "2",
-    name: "Ravi Teja",
-    category: "Under 15",
+    id: '2',
+    name: 'Ravi Teja',
+    category: 'Under 15',
     rating: 1420,
-    paymentStatus: "Pending",
+    paymentStatus: 'Pending',
   },
-]
+];
 
 const TournamentPlayers = () => {
-  const [search, setSearch] = useState("")
-  const [category, setCategory] = useState("all")
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('all');
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto px-3 pb-24">
@@ -52,9 +52,7 @@ const TournamentPlayers = () => {
             <Users className="h-6 w-6 text-primary" />
             Players
           </h1>
-          <p className="text-muted-foreground">
-            District Open Chess 2026
-          </p>
+          <p className="text-muted-foreground">District Open Chess 2026</p>
         </div>
 
         <Button className="flex items-center gap-2 w-fit">
@@ -135,20 +133,15 @@ const TournamentPlayers = () => {
               </thead>
               <tbody>
                 {players.map((p) => (
-                  <tr
-                    key={p.id}
-                    className="border-b last:border-none"
-                  >
+                  <tr key={p.id} className="border-b last:border-none">
                     <td className="py-3 font-medium">{p.name}</td>
-                    <td>{p.fideId ?? "—"}</td>
+                    <td>{p.fideId ?? '—'}</td>
                     <td>{p.category}</td>
-                    <td>{p.rating ?? "—"}</td>
+                    <td>{p.rating ?? '—'}</td>
                     <td>
                       <Badge
                         variant={
-                          p.paymentStatus === "Paid"
-                            ? "default"
-                            : "secondary"
+                          p.paymentStatus === 'Paid' ? 'default' : 'secondary'
                         }
                       >
                         {p.paymentStatus}
@@ -186,7 +179,7 @@ const TournamentPlayers = () => {
               </p>
 
               <p className="text-sm">
-                FIDE: {p.fideId ?? "—"} | Rating: {p.rating ?? "—"}
+                FIDE: {p.fideId ?? '—'} | Rating: {p.rating ?? '—'}
               </p>
 
               <Button
@@ -206,9 +199,7 @@ const TournamentPlayers = () => {
       {players.length === 0 && (
         <Card className="py-16 text-center">
           <CardContent>
-            <h3 className="text-lg font-semibold">
-              No players registered yet
-            </h3>
+            <h3 className="text-lg font-semibold">No players registered yet</h3>
             <p className="text-muted-foreground mb-4">
               Add offline players or wait for registrations
             </p>
@@ -217,7 +208,7 @@ const TournamentPlayers = () => {
         </Card>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default TournamentPlayers
+export default TournamentPlayers;

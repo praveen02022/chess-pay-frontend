@@ -1,33 +1,33 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Input from "@/components/form/input"
-import { useNavigate } from "react-router-dom"
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import Input from '@/components/form/input';
+import { useNavigate } from 'react-router-dom';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Plus, Eye, Pencil } from "lucide-react"
-import { useMyTournaments } from "@/hooks/useTournament"
+} from '@/components/ui/select';
+import { Plus, Eye, Pencil } from 'lucide-react';
+import { useMyTournaments } from '@/hooks/useTournament';
 
 const Tournaments = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // ✅ Correct hook usage
-  const { data: tournaments = [], isLoading } = useMyTournaments()
+  const { data: tournaments = [], isLoading } = useMyTournaments();
 
   const getStatus = (endDate: string) =>
-    new Date(endDate) < new Date() ? "Completed" : "Upcoming"
+    new Date(endDate) < new Date() ? 'Completed' : 'Upcoming';
 
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto px-3">
         <p className="text-muted-foreground">Loading tournaments...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -43,7 +43,7 @@ const Tournaments = () => {
 
         <Button
           className="flex items-center gap-2 w-fit"
-          onClick={() => navigate("/organizer/tournaments/create")}
+          onClick={() => navigate('/organizer/tournaments/create')}
         >
           <Plus className="h-4 w-4" />
           Create Tournament
@@ -70,17 +70,11 @@ const Tournaments = () => {
       {tournaments.length === 0 && (
         <Card className="py-16 text-center">
           <CardContent>
-            <h3 className="text-lg font-semibold">
-              No tournaments yet
-            </h3>
+            <h3 className="text-lg font-semibold">No tournaments yet</h3>
             <p className="text-muted-foreground mb-4">
               Create your first chess tournament
             </p>
-            <Button
-              onClick={() =>
-                navigate("/organizer/tournaments/create")
-              }
-            >
+            <Button onClick={() => navigate('/organizer/tournaments/create')}>
               Create Tournament
             </Button>
           </CardContent>
@@ -107,7 +101,7 @@ const Tournaments = () => {
                 </thead>
                 <tbody>
                   {tournaments.map((t) => {
-                    const status = getStatus(t.end_date)
+                    const status = getStatus(t.end_date);
 
                     return (
                       <tr
@@ -118,21 +112,17 @@ const Tournaments = () => {
                           {t.tournament_name}
                         </td>
 
-                        <td>
-                          {t.address?.district?.district_name ?? "-"}
-                        </td>
+                        <td>{t.address?.district?.district_name ?? '-'}</td>
 
                         <td>
-                          {new Date(t.start_date).toLocaleDateString()} –{" "}
+                          {new Date(t.start_date).toLocaleDateString()} –{' '}
                           {new Date(t.end_date).toLocaleDateString()}
                         </td>
 
                         <td>
                           <Badge
                             variant={
-                              status === "Completed"
-                                ? "secondary"
-                                : "default"
+                              status === 'Completed' ? 'secondary' : 'default'
                             }
                           >
                             {status}
@@ -165,7 +155,7 @@ const Tournaments = () => {
                           </Button>
                         </td>
                       </tr>
-                    )
+                    );
                   })}
                 </tbody>
               </table>
@@ -174,7 +164,7 @@ const Tournaments = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Tournaments
+export default Tournaments;

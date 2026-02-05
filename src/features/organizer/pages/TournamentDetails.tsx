@@ -1,26 +1,24 @@
-import { useParams, useNavigate } from "react-router-dom"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, IndianRupee, Pencil } from "lucide-react"
-import { useTournamentDetails } from "@/hooks/useTournament"
+import { useParams, useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, MapPin, IndianRupee, Pencil } from 'lucide-react';
+import { useTournamentDetails } from '@/hooks/useTournament';
 
 export default function TournamentDetails() {
-  const { tournamentId } = useParams()
-  const navigate = useNavigate()
+  const { tournamentId } = useParams();
+  const navigate = useNavigate();
 
   const { tournament, isLoading } = useTournamentDetails(
     tournamentId as string
-  )
+  );
 
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <p className="text-muted-foreground">
-          Loading tournament details…
-        </p>
+        <p className="text-muted-foreground">Loading tournament details…</p>
       </div>
-    )
+    );
   }
 
   if (!tournament) {
@@ -28,13 +26,11 @@ export default function TournamentDetails() {
       <div className="max-w-4xl mx-auto p-6">
         <p className="text-red-500">Tournament not found</p>
       </div>
-    )
+    );
   }
 
   const status =
-    new Date(tournament.end_date) < new Date()
-      ? "Completed"
-      : "Upcoming"
+    new Date(tournament.end_date) < new Date() ? 'Completed' : 'Upcoming';
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 p-4">
@@ -50,7 +46,7 @@ export default function TournamentDetails() {
         </div>
 
         <Badge
-          variant={status === "Completed" ? "secondary" : "default"}
+          variant={status === 'Completed' ? 'secondary' : 'default'}
           className="w-fit"
         >
           {status}
@@ -65,24 +61,16 @@ export default function TournamentDetails() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-muted-foreground">
-              Start Date
-            </p>
+            <p className="text-sm text-muted-foreground">Start Date</p>
             <p className="font-medium">
-              {new Date(
-                tournament.start_date
-              ).toLocaleDateString()}
+              {new Date(tournament.start_date).toLocaleDateString()}
             </p>
           </div>
 
           <div>
-            <p className="text-sm text-muted-foreground">
-              End Date
-            </p>
+            <p className="text-sm text-muted-foreground">End Date</p>
             <p className="font-medium">
-              {new Date(
-                tournament.end_date
-              ).toLocaleDateString()}
+              {new Date(tournament.end_date).toLocaleDateString()}
             </p>
           </div>
         </CardContent>
@@ -96,19 +84,15 @@ export default function TournamentDetails() {
             <CardTitle>Venue Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <p className="font-medium">
-              {tournament.address.address_one}
-            </p>
+            <p className="font-medium">{tournament.address.address_one}</p>
 
             <p className="text-sm text-muted-foreground">
-              {tournament.address.district?.district_name},{" "}
+              {tournament.address.district?.district_name},{' '}
               {tournament.address.state?.state_name}
             </p>
 
             <p className="text-sm">
-              <span className="text-muted-foreground">
-                Pincode:
-              </span>{" "}
+              <span className="text-muted-foreground">Pincode:</span>{' '}
               {tournament.address.pincode}
             </p>
           </CardContent>
@@ -123,9 +107,7 @@ export default function TournamentDetails() {
         </CardHeader>
         <CardContent className="space-y-3">
           {tournament.fees.length === 0 && (
-            <p className="text-muted-foreground">
-              No entry fees configured
-            </p>
+            <p className="text-muted-foreground">No entry fees configured</p>
           )}
 
           {tournament.fees.map((fee: any) => (
@@ -133,12 +115,8 @@ export default function TournamentDetails() {
               key={fee.fee_id}
               className="flex justify-between items-center rounded-md border px-3 py-2"
             >
-              <span className="font-medium">
-                {fee.category}
-              </span>
-              <span className="text-sm font-semibold">
-                ₹ {fee.amount}
-              </span>
+              <span className="font-medium">{fee.category}</span>
+              <span className="text-sm font-semibold">₹ {fee.amount}</span>
             </div>
           ))}
         </CardContent>
@@ -149,9 +127,7 @@ export default function TournamentDetails() {
         <Button
           variant="outline"
           onClick={() =>
-            navigate(
-              `/organizer/tournaments/${tournamentId}/edit`
-            )
+            navigate(`/organizer/tournaments/${tournamentId}/edit`)
           }
           className="flex items-center gap-2"
         >
@@ -160,5 +136,5 @@ export default function TournamentDetails() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

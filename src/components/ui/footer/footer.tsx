@@ -1,21 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
     <footer className="bg-[#ABE7B2] text-black/80">
       <div className="mx-auto max-w-7xl px-6 py-14">
-
         {/* Top Sectionss */}
         <div className="grid gap-10 md:grid-cols-4">
-
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold text-white mb-3">
-              Chess..
-            </h3>
+            <h3 className="text-2xl font-bold text-white mb-3">Chess..</h3>
             <p className="text-sm text-gray-900 leading-relaxed">
-              A simple platform for publishing chess tournaments and
-              registering players to participate.
+              A simple platform for publishing chess tournaments and registering
+              players to participate.
             </p>
           </div>
 
@@ -86,9 +82,7 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-300 gap-4">
-          <p>
-            © {new Date().getFullYear()} Chess. All rights reserved.
-          </p>
+          <p>© {new Date().getFullYear()} Chess. All rights reserved.</p>
 
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-white transition">
@@ -99,7 +93,6 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-
       </div>
     </footer>
   );

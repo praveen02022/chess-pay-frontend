@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createTournamentApi,
   deleteTournamentApi,
@@ -6,8 +6,7 @@ import {
   getTournamentsApi,
   listMyTournamentsApi,
   updateTournamentApi,
-  
-} from "@/lib/apis/tournament.api";
+} from '@/lib/apis/tournament.api';
 
 /* ---------------- CREATE ---------------- */
 export const useCreateTournament = () => {
@@ -16,7 +15,7 @@ export const useCreateTournament = () => {
   return useMutation({
     mutationFn: createTournamentApi,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tournaments"] });
+      queryClient.invalidateQueries({ queryKey: ['tournaments'] });
     },
   });
 };
@@ -24,7 +23,7 @@ export const useCreateTournament = () => {
 /* ---------------- LIST ---------------- */
 export const useTournaments = () => {
   return useQuery({
-    queryKey: ["tournaments"],
+    queryKey: ['tournaments'],
     queryFn: getTournamentsApi,
   });
 };
@@ -32,7 +31,7 @@ export const useTournaments = () => {
 /* ---------------- GET BY ID ---------------- */
 export const useTournament = (tournamentId: string) => {
   return useQuery({
-    queryKey: ["tournament", tournamentId],
+    queryKey: ['tournament', tournamentId],
     queryFn: () => getTournamentApi(tournamentId),
     enabled: !!tournamentId,
   });
@@ -40,7 +39,7 @@ export const useTournament = (tournamentId: string) => {
 
 export const useMyTournaments = () => {
   return useQuery({
-    queryKey: ["my-tournaments"],
+    queryKey: ['my-tournaments'],
     queryFn: listMyTournamentsApi,
   });
 };
@@ -49,20 +48,15 @@ export const useUpdateTournament = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({
-      tournamentId,
-      data,
-    }: {
-      tournamentId: string;
-      data: any;
-    }) => updateTournamentApi(tournamentId, data),
+    mutationFn: ({ tournamentId, data }: { tournamentId: string; data: any }) =>
+      updateTournamentApi(tournamentId, data),
 
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ["tournament", variables.tournamentId],
+        queryKey: ['tournament', variables.tournamentId],
       });
       queryClient.invalidateQueries({
-        queryKey: ["tournaments"],
+        queryKey: ['tournaments'],
       });
     },
   });
@@ -75,7 +69,7 @@ export const useDeleteTournament = () => {
   return useMutation({
     mutationFn: deleteTournamentApi,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tournaments"] });
+      queryClient.invalidateQueries({ queryKey: ['tournaments'] });
     },
   });
 };
@@ -83,12 +77,9 @@ export const useDeleteTournament = () => {
 // ---------------- CUSTOM HOOK TO GET TOURNAMENT DETAILS FROM MY TOURNAMENTS ----------------
 
 export const useTournamentDetails = (tournamentId: string) => {
-  const { data = [], isLoading } = useMyTournaments()
+  const { data = [], isLoading } = useMyTournaments();
 
-  const tournament = data.find(
-    (t: any) => t.tournament_id === tournamentId
-  )
+  const tournament = data.find((t: any) => t.tournament_id === tournamentId);
 
-  return { tournament, isLoading }
-}
-
+  return { tournament, isLoading };
+};

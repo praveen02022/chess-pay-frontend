@@ -1,19 +1,23 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
   Trophy,
   PlusCircle,
   Users,
   Settings,
-} from "lucide-react"
+} from 'lucide-react';
 
 const menu = [
-  { label: "Dashboard", path: "/organizer", icon: LayoutDashboard },
-  { label: "My Tournaments", path: "/organizer/tournaments", icon: Trophy },
-  { label: "Create Tournament", path: "/organizer/tournaments/create", icon: PlusCircle },
-  { label: "Players", path: "/organizer/players", icon: Users },
-  { label: "Settings", path: "/organizer/settings", icon: Settings },
-]
+  { label: 'Dashboard', path: '/organizer', icon: LayoutDashboard },
+  { label: 'My Tournaments', path: '/organizer/tournaments', icon: Trophy },
+  {
+    label: 'Create Tournament',
+    path: '/organizer/tournaments/create',
+    icon: PlusCircle,
+  },
+  { label: 'Players', path: '/organizer/players', icon: Users },
+  { label: 'Settings', path: '/organizer/settings', icon: Settings },
+];
 
 const OrganizerSidebar = () => {
   return (
@@ -27,7 +31,9 @@ const OrganizerSidebar = () => {
             to={item.path}
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium ${
-                isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                isActive
+                  ? 'bg-primary text-primary-foreground'
+                  : 'hover:bg-muted'
               }`
             }
           >
@@ -37,7 +43,7 @@ const OrganizerSidebar = () => {
         ))}
       </nav>
     </aside>
-  )
-}
+  );
+};
 
-export default OrganizerSidebar
+export default OrganizerSidebar;

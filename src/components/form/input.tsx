@@ -1,25 +1,22 @@
-import { type InputHTMLAttributes } from "react"
+import { type InputHTMLAttributes } from 'react';
 import {
   type FieldErrors,
   type FieldValues,
   type Path,
   type UseFormRegister,
-} from "react-hook-form"
+} from 'react-hook-form';
 
 export interface Props<
   T extends FieldValues = FieldValues,
   U extends FieldValues = FieldValues,
 > extends InputHTMLAttributes<HTMLInputElement> {
-  name?: Path<T>                // 👈 optional
-  label?: string
-  register?: UseFormRegister<T> // 👈 optional
-  errors?: FieldErrors<U>
+  name?: Path<T>; // 👈 optional
+  label?: string;
+  register?: UseFormRegister<T>; // 👈 optional
+  errors?: FieldErrors<U>;
 }
 
-export default function Input<
-  T extends FieldValues,
-  U extends FieldValues,
->({
+export default function Input<T extends FieldValues, U extends FieldValues>({
   disabled = false,
   placeholder,
   errors,
@@ -51,5 +48,5 @@ export default function Input<
         </span>
       )}
     </div>
-  )
+  );
 }

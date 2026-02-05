@@ -1,6 +1,5 @@
-import { Outlet } from "react-router-dom"
-import OrganizerSidebar from "../components/OrganizerSidebar"
-
+import { Outlet } from 'react-router-dom';
+import OrganizerSidebar from '../components/OrganizerSidebar';
 
 const OrganizerLayout = () => {
   return (
@@ -13,7 +12,7 @@ const OrganizerLayout = () => {
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default OrganizerLayout
+export default OrganizerLayout;

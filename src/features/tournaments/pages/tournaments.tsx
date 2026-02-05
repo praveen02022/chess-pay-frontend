@@ -1,8 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function tournaments() {
-  return (
-    <div>tournaments</div>
-  )
+  return <div>tournaments</div>;
 }
-

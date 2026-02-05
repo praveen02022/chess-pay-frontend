@@ -1,14 +1,14 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
-import Input from "@/components/form/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Trash2, Settings, Save } from "lucide-react"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
+import Input from '@/components/form/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Trash2, Settings, Save } from 'lucide-react';
 
 const TournamentSettings = () => {
-  const [registrationOpen, setRegistrationOpen] = useState(true)
+  const [registrationOpen, setRegistrationOpen] = useState(true);
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto px-3 pb-24">
@@ -50,10 +50,7 @@ const TournamentSettings = () => {
           <CardTitle>Venue / Address</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Textarea
-            rows={3}
-            placeholder="Venue address"
-          />
+          <Textarea rows={3} placeholder="Venue address" />
           <Input label="Pincode" type="number" />
           <Input label="State" value="Tamil Nadu" />
           <Input label="District" value="Chennai" />
@@ -70,9 +67,7 @@ const TournamentSettings = () => {
           <div className="flex justify-between items-center">
             <div>
               <p className="font-medium">Open Category</p>
-              <p className="text-sm text-muted-foreground">
-                ₹500
-              </p>
+              <p className="text-sm text-muted-foreground">₹500</p>
             </div>
             <Button variant="outline" size="sm">
               Edit
@@ -82,9 +77,7 @@ const TournamentSettings = () => {
           <div className="flex justify-between items-center">
             <div>
               <p className="font-medium">Under 15</p>
-              <p className="text-sm text-muted-foreground">
-                ₹300
-              </p>
+              <p className="text-sm text-muted-foreground">₹300</p>
             </div>
             <Button variant="outline" size="sm">
               Edit
@@ -102,9 +95,7 @@ const TournamentSettings = () => {
         </CardHeader>
         <CardContent className="flex items-center justify-between">
           <div>
-            <p className="font-medium">
-              Registration Open
-            </p>
+            <p className="font-medium">Registration Open</p>
             <p className="text-sm text-muted-foreground">
               Toggle to allow or stop new registrations
             </p>
@@ -120,9 +111,7 @@ const TournamentSettings = () => {
       {/* Danger Zone */}
       <Card className="border-destructive">
         <CardHeader>
-          <CardTitle className="text-destructive">
-            Danger Zone
-          </CardTitle>
+          <CardTitle className="text-destructive">Danger Zone</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row justify-between gap-4">
@@ -137,9 +126,7 @@ const TournamentSettings = () => {
 
           <div className="flex flex-col sm:flex-row justify-between gap-4">
             <div>
-              <p className="font-medium text-destructive">
-                Delete Tournament
-              </p>
+              <p className="font-medium text-destructive">Delete Tournament</p>
               <p className="text-sm text-muted-foreground">
                 This action cannot be undone
               </p>
@@ -161,7 +148,7 @@ const TournamentSettings = () => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TournamentSettings
+export default TournamentSettings;
