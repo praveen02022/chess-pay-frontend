@@ -9,14 +9,12 @@ const getItem = <T = string>(key: string): T | null => {
   if (!value) return null;
 
   try {
-    return JSON.parse(value) as T
+    return JSON.parse(value) as T;
   } catch {
     // 🔥 JWT is a raw string — return as-is
     return value as T;
   }
 };
-
-
 
 /**
  * Saves a value to localStorage with the given key.

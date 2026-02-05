@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Input from "@/components/form/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Input from '@/components/form/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Trophy } from "lucide-react";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Plus, Trash2, Trophy } from 'lucide-react';
 
-import { useCreateTournament } from "@/hooks/useTournament";
-import { useCreateTournamentFees } from "@/hooks/useTournamentFees";
-import { createTournamentAddressApi } from "@/lib/apis/tournamentAddress.api";
-import { useStates, useDistricts, useTaluks } from "@/hooks/uselocation";
+import { useCreateTournament } from '@/hooks/useTournament';
+import { useCreateTournamentFees } from '@/hooks/useTournamentFees';
+import { createTournamentAddressApi } from '@/lib/apis/tournamentAddress.api';
+import { useStates, useDistricts, useTaluks } from '@/hooks/uselocation';
 
 type FeeRow = {
   category: string;
@@ -28,16 +28,16 @@ const CreateTournament = () => {
   const navigate = useNavigate();
 
   /* ---------------- Tournament ---------------- */
-  const [tournamentName, setTournamentName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [tournamentName, setTournamentName] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   /* ---------------- Address ---------------- */
-  const [addressOne, setAddressOne] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [stateId, setStateId] = useState("");
-  const [districtId, setDistrictId] = useState("");
-  const [talukId, setTalukId] = useState("");
+  const [addressOne, setAddressOne] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [stateId, setStateId] = useState('');
+  const [districtId, setDistrictId] = useState('');
+  const [talukId, setTalukId] = useState('');
 
   /* ---------------- Location APIs ---------------- */
   const { data: states = [] } = useStates();
@@ -46,31 +46,24 @@ const CreateTournament = () => {
 
   const onStateChange = (value: string) => {
     setStateId(value);
-    setDistrictId("");
-    setTalukId("");
+    setDistrictId('');
+    setTalukId('');
   };
 
   const onDistrictChange = (value: string) => {
     setDistrictId(value);
-    setTalukId("");
+    setTalukId('');
   };
 
   /* ---------------- Fees ---------------- */
-  const [fees, setFees] = useState<FeeRow[]>([
-    { category: "", amount: "" },
-  ]);
+  const [fees, setFees] = useState<FeeRow[]>([{ category: '', amount: '' }]);
 
-  const addFee = () =>
-    setFees([...fees, { category: "", amount: "" }]);
+  const addFee = () => setFees([...fees, { category: '', amount: '' }]);
 
   const removeFee = (index: number) =>
     setFees(fees.filter((_, i) => i !== index));
 
-  const updateFee = (
-    index: number,
-    field: keyof FeeRow,
-    value: string
-  ) => {
+  const updateFee = (index: number, field: keyof FeeRow, value: string) => {
     const updated = [...fees];
     updated[index][field] = value;
     setFees(updated);
@@ -83,16 +76,14 @@ const CreateTournament = () => {
   /* ---------------- Submit ---------------- */
   const handleCreateTournament = async () => {
     try {
-      const tournamentRes =
-        await createTournamentMutation.mutateAsync({
-          tournament_name: tournamentName.trim(),
-          start_date: new Date(startDate).toISOString(),
-          end_date: new Date(endDate).toISOString(),
-          broucher_url: null,
-        });
+      const tournamentRes = await createTournamentMutation.mutateAsync({
+        tournament_name: tournamentName.trim(),
+        start_date: new Date(startDate).toISOString(),
+        end_date: new Date(endDate).toISOString(),
+        broucher_url: null,
+      });
 
-      const tournamentId =
-        tournamentRes.data.data.tournament_id;
+      const tournamentId = tournamentRes.data.data.tournament_id;
 
       await createTournamentAddressApi(tournamentId, {
         address_one: addressOne,
@@ -112,10 +103,9 @@ const CreateTournament = () => {
         })),
       });
 
-      navigate("/organizer/tournaments");
-    } catch (error) {
-      console.error(error);
-      alert("Failed to create tournament");
+      navigate('/organizer/tournaments');
+    } catch {
+      alert('Failed to create tournament');
     }
   };
 
@@ -184,10 +174,7 @@ const CreateTournament = () => {
                 className="z-50 bg-white border shadow-lg rounded-md max-h-64 overflow-y-auto"
               >
                 {states.map((state: any) => (
-                  <SelectItem
-                    key={state.state_id}
-                    value={state.state_id}
-                  >
+                  <SelectItem key={state.state_id} value={state.state_id}>
                     {state.state_name}
                   </SelectItem>
                 ))}
@@ -232,10 +219,7 @@ const CreateTournament = () => {
               </SelectTrigger>
               <SelectContent className="z-50 bg-white border shadow-lg rounded-md max-h-60 overflow-y-auto">
                 {taluks.map((taluk: any) => (
-                  <SelectItem
-                    key={taluk.taluk_id}
-                    value={taluk.taluk_id}
-                  >
+                  <SelectItem key={taluk.taluk_id} value={taluk.taluk_id}>
                     {taluk.taluk_name}
                   </SelectItem>
                 ))}
@@ -256,23 +240,16 @@ const CreateTournament = () => {
               <Input
                 label="Category"
                 value={fee.category}
-                onChange={(e) =>
-                  updateFee(index, "category", e.target.value)
-                }
+                onChange={(e) => updateFee(index, 'category', e.target.value)}
               />
               <Input
                 label="Amount"
                 type="number"
                 value={fee.amount}
-                onChange={(e) =>
-                  updateFee(index, "amount", e.target.value)
-                }
+                onChange={(e) => updateFee(index, 'amount', e.target.value)}
               />
               {fees.length > 1 && (
-                <Button
-                  variant="destructive"
-                  onClick={() => removeFee(index)}
-                >
+                <Button variant="destructive" onClick={() => removeFee(index)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               )}
@@ -301,10 +278,9 @@ const CreateTournament = () => {
           }
         >
           {createTournamentMutation.isPending
-            ? "Creating..."
-            : "Create Tournament"}
+            ? 'Creating...'
+            : 'Create Tournament'}
         </Button>
-
       </div>
     </div>
   );

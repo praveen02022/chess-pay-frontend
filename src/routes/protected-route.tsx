@@ -1,26 +1,26 @@
-import { Navigate, Outlet } from "react-router-dom";
-import useAuthStore from "@/store/auth-store";
+import { Navigate, Outlet } from 'react-router-dom';
+import useAuthStore, { Role } from '@/store/auth-store';
 
 interface Props {
-  allowedRoles: Array<"ADMIN" | "ORGANIZER" | "USER">;
+  allowedRoles: Role[];
 }
 
 const ProtectedRoute = ({ allowedRoles }: Props) => {
-  // 🔥 DEV BYPASS
-  const IS_DEV = import.meta.env.DEV;
+  const IS_DEV = import.meta.env.MODE === 'development';
 
-  if (IS_DEV) {
-    return <Outlet />;
-  }
+  if (IS_DEV) return <Outlet />;
 
-  // 🔐 REAL LOGIC (will work later)
-  const { isAuthenticated, user } = useAuthStore((state) => state);
+  const { isAuthenticated, user } = useAuthStore();
 
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (!user || !allowedRoles.includes(user.role)) {
+  if (
+    !user ||
+    (!allowedRoles.includes(user.role as Role) &&
+      !allowedRoles.includes(user.role.toUpperCase() as Role))
+  ) {
     return <Navigate to="/unauthorized" replace />;
   }
 

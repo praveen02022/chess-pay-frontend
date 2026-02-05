@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Input from '@/components/form/input';
 
@@ -106,8 +107,7 @@ const EditTournament = () => {
       });
 
       navigate(`/organizer/tournaments/${tournamentId}`);
-    } catch (err) {
-      console.error(err);
+    } catch {
       alert('Failed to update tournament');
     }
   };
@@ -143,11 +143,13 @@ const EditTournament = () => {
           <CardTitle>Venue</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Textarea
-            label="Address"
-            value={addressOne}
-            onChange={(e) => setAddressOne(e.target.value)}
-          />
+          <div className="space-y-2">
+            <Label>Address</Label>
+            <Textarea
+              value={addressOne}
+              onChange={(e) => setAddressOne(e.target.value)}
+            />
+          </div>
           <Input
             label="Pincode"
             value={pincode}

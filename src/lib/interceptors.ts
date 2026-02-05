@@ -1,64 +1,43 @@
-import {
-  type AxiosError,
-  type AxiosResponse,
-  type InternalAxiosRequestConfig,
-} from 'axios';
-import { getItem } from './local-storage';
+import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import useAuthStore from '@/store/auth-store';
 
-export interface ConsoleError {
-  status: number;
-  data: unknown;
-}
-
+/* ================= REQUEST ================= */
 export const requestInterceptor = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
-  const token = getItem<string>('token');
-  console.log("🧪 RAW TOKEN:", token);
-  console.log("FINAL AUTH HEADER:", config.headers.Authorization);
+  const { token } = useAuthStore.getState();
 
   if (token) {
-    config.headers.set("Authorization", `Bearer ${token}`);
+    config.headers.Authorization = `Bearer ${token}`;
   }
-
-  console.log(
-    "🧪 FINAL AUTH HEADER:",
-    config.headers.get("Authorization")
-  );
 
   return config;
 };
-// export const requestInterceptor = (config: any) => {
-//   const devToken = import.meta.env.VITE_DEV_ORGANIZER_TOKEN;
 
-//   if (devToken) {
-//     config.headers.Authorization = `Bearer ${devToken}`;
-//   }
-
-//   return config;
-// };
-
+/* ================= SUCCESS ================= */
 export const successInterceptor = (response: AxiosResponse): AxiosResponse => {
   return response;
 };
 
-
-
-export const errorInterceptor = async (error: AxiosError): Promise<void> => {
+/* ================= ERROR ================= */
+export const errorInterceptor = (error: AxiosError) => {
+  // 401 → let caller (React Query / app) handle it
   if (error.response?.status === 401) {
-    await Promise.reject(error);
-  } else {
-    if (error.response) {
-      const errorMessage: ConsoleError = {
-        status: error.response.status,
-        data: error.response.data,
-      };
-      console.error(errorMessage);
-    } else if (error.request) {
-      console.error(error.request);
-    } else {
-      console.error('Error', error.message);
-    }
-    await Promise.reject(error);
+    return Promise.reject(error);
   }
+
+  // Helpful console logging for dev
+  // Helpful console logging for dev
+  /* if (error.response) {
+      console.error('Data:', error.response.data);
+      console.error('Status:', error.response.status);
+      console.error('Headers:', error.response.headers);
+  } else if (error.request) {
+      console.error('Request:', error.request);
+  } else {
+      console.error('Error:', error.message);
+  } */
+
+  // ✅ THIS IS CRITICAL
+  return Promise.reject(error);
 };
