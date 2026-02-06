@@ -1,16 +1,12 @@
-import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import useAuthStore from '@/store/auth-store';
+import { api } from './api';
+import authStore from '@/store/auth-store';
 
 /* ================= REQUEST ================= */
 export const requestInterceptor = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
-  const { token } = useAuthStore.getState();
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
   return config;
 };
 
@@ -20,24 +16,40 @@ export const successInterceptor = (response: AxiosResponse): AxiosResponse => {
 };
 
 /* ================= ERROR ================= */
-export const errorInterceptor = (error: AxiosError) => {
-  // 401 → let caller (React Query / app) handle it
+let isRefreshing = false;
+let queue: any[] = [];
+
+export const errorInterceptor = async (error: any) => {
+  const originalRequest = error.config;
+
+  if (error.response?.status === 401 && !originalRequest._retry) {
+    originalRequest._retry = true;
+
+    if (isRefreshing) {
+      return new Promise((resolve, reject) => {
+        queue.push({ resolve, reject });
+      }).then(() => api(originalRequest));
+    }
+
+    isRefreshing = true;
+
+    try {
+      await api.post('/auth/refresh'); // 🔁 uses refresh cookie
+      queue.forEach((p) => p.resolve());
+      queue = [];
+      return api(originalRequest);
+    } catch (err) {
+      queue.forEach((p) => p.reject(err));
+      queue = [];
+      useAuthStore.getState().logout();
+      return Promise.reject(err);
+    } finally {
+      isRefreshing = false;
+    }
+  }
   if (error.response?.status === 401) {
-    return Promise.reject(error);
+    authStore.getState().logout();
   }
 
-  // Helpful console logging for dev
-  // Helpful console logging for dev
-  /* if (error.response) {
-      console.error('Data:', error.response.data);
-      console.error('Status:', error.response.status);
-      console.error('Headers:', error.response.headers);
-  } else if (error.request) {
-      console.error('Request:', error.request);
-  } else {
-      console.error('Error:', error.message);
-  } */
-
-  // ✅ THIS IS CRITICAL
   return Promise.reject(error);
 };

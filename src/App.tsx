@@ -6,14 +6,15 @@ import { AppProvider } from './provider';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import useAuthStore from '@/store/auth-store';
-import { useMe } from '@/hooks/useme';
-import { useAuthBootstrap } from '@/hooks/use-auth-bootstrap';
+import { useEffect } from 'react';
 
 function App() {
-  const { isAuthenticated } = useAuthStore();
+  const bootstrapAuth = useAuthStore((s) => s.bootstrapAuth);
 
-  useAuthBootstrap();
-  useMe(isAuthenticated);
+  useEffect(() => {
+    bootstrapAuth();
+  }, []);
+
   return (
     <AppProvider>
       <div className="min-h-screen">

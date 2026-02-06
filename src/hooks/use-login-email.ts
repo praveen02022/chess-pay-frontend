@@ -3,7 +3,7 @@ import { loginWithEmailApi } from '@/lib/apis/auth.api';
 import useAuthStore from '@/store/auth-store';
 
 export const useLoginEmail = () => {
-  const setAuth = useAuthStore((s) => s.setAuth);
+  const setAuth = useAuthStore((s) => s.setUser);
 
   return useMutation({
     mutationFn: loginWithEmailApi,
@@ -11,7 +11,7 @@ export const useLoginEmail = () => {
       const data = response.data || response;
       const user = data.user;
 
-      setAuth(user, data.tokens.access.token, data.tokens.refresh.token);
+      setAuth(user);
     },
   });
 };

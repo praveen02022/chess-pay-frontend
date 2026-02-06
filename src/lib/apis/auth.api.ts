@@ -15,6 +15,10 @@ export const loginWithEmailApi = async (payload: {
   return data;
 };
 
+export const logoutApi = async () => {
+  await api.post('/auth/logout');
+};
+
 /* ---------- FIDE LOGIN ---------- */
 export const loginWithFideApi = async (payload: {
   fideId: string;

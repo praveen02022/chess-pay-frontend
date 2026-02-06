@@ -1,7 +1,8 @@
 import useAuthStore from '@/store/auth-store';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useMe } from '@/hooks/useme';
+import { logoutApi } from '@/lib/apis/auth.api';
+
 import {
   User,
   LogOut,
@@ -18,16 +19,18 @@ import {
 import { Separator } from '@/components/ui/separator';
 
 export default function ProfilePage() {
-  const { user, isAuthenticated, logout } = useAuthStore();
-  useMe(isAuthenticated);
+  const { user, logout } = useAuthStore();
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      await logoutApi();
+    } finally {
+      logout();
+      navigate('/');
+    }
   };
-
   const InfoItem = ({ icon: Icon, label, value, className }: any) => (
     <div className={`space-y-1 ${className}`}>
       <label className="text-sm font-medium text-gray-500 flex items-center gap-2">

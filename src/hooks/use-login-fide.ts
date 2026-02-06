@@ -3,7 +3,7 @@ import { loginWithFideApi } from '@/lib/apis/auth.api';
 import useAuthStore from '@/store/auth-store';
 
 export const useLoginFide = () => {
-  const setAuth = useAuthStore((s) => s.setAuth);
+  const setAuth = useAuthStore((s) => s.setUser);
 
   return useMutation({
     mutationFn: loginWithFideApi,
@@ -11,7 +11,7 @@ export const useLoginFide = () => {
       const data = response.data || response;
       const user = data.user;
 
-      setAuth(user, data.tokens.access.token, data.tokens.refresh.token);
+      setAuth(user);
     },
   });
 };

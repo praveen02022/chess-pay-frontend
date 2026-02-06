@@ -12,7 +12,7 @@ export const useSendOtp = () => {
 /* STEP 2 */
 
 export const useVerifyOtp = () => {
-  const setAuth = useAuthStore((s) => s.setAuth);
+  const setAuth = useAuthStore((s) => s.setUser);
 
   return useMutation({
     mutationFn: verifyOtpApi,
@@ -20,7 +20,7 @@ export const useVerifyOtp = () => {
       const data = response.data || response;
       const user = data.user;
 
-      setAuth(user, data.tokens.access.token, data.tokens.refresh.token);
+      setAuth(user);
     },
   });
 };
